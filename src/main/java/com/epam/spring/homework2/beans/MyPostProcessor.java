@@ -14,7 +14,7 @@ public class MyPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(Object bean, String beanName) {
         if (bean instanceof Bean) {
             if (((Bean) bean).getName() == null || ((Bean) bean).getValue() < 0) {
-                System.out.println("Not valid");
+                System.out.println("Not valid " + bean.getClass().getSimpleName());
             }
         }
         return bean;

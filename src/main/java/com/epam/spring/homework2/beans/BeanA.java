@@ -9,15 +9,6 @@ public class BeanA implements InitializingBean, DisposableBean, Bean {
     private String name;
     private int value;
 
-    public BeanA(){
-
-    }
-
-    public BeanA(String name, int value) {
-        this.value = value;
-        this.name = name;
-    }
-
     @Override
     public String getName() {
         return name;
