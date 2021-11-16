@@ -39,7 +39,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public Topic updateTopic(int id, Topic topic) {
-        log.info("update conference with id {}", id);
+        log.info("update topic with id {}", id);
         return topicRepository.updateTopic(id, topic);
     }
 

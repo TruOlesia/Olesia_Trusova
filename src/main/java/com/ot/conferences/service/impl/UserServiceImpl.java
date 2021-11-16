@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(String login) {
-        log.info("getUser by email {}", login);
+        log.info("getUser by login {}", login);
         User user = userRepository.getUser(login);
         return user;
     }
@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        log.info("createUser with email {}", user.getLogin());
+        log.info("createUser with login {}", user.getLogin());
         return userRepository.createUser(user);
     }
 
     @Override
     public User updateUser(String login, User user) {
-        log.info("updateUser with email {}", login);
+        log.info("updateUser with login {}", login);
         return userRepository.updateUser(login, user);
     }
 
