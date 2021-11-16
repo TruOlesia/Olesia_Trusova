@@ -1,0 +1,11 @@
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: none
+  show-sql: true
+
+spring.datasource:
+  platform: postgres
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/Conference
+  username: postgres
+  password: postgres
