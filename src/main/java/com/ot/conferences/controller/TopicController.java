@@ -7,6 +7,7 @@ import com.ot.conferences.service.TopicService;
 import com.ot.conferences.service.model.Conference;
 import com.ot.conferences.service.model.Topic;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor
+
 public class TopicController {
 
-    private final TopicService topicService;
+    @Autowired
+    private TopicService topicService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/topics")

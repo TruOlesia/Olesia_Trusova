@@ -1,18 +1,22 @@
 package com.ot.conferences.service.impl;
+
 import com.ot.conferences.service.TopicService;
 import com.ot.conferences.service.model.Topic;
 import com.ot.conferences.service.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+
 public class TopicServiceImpl implements TopicService {
 
-    private final TopicRepository topicRepository;
+    @Autowired
+    private TopicRepository topicRepository;
 
     @Override
     public List<Topic> getAllTopics() {

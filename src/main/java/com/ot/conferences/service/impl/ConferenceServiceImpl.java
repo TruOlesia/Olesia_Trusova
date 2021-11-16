@@ -8,6 +8,7 @@ import com.ot.conferences.service.repository.ConferenceRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class ConferenceServiceImpl implements ConferenceService {
-
-    private final ConferenceRepository conferenceRepository;
+    @Autowired
+    private ConferenceRepository conferenceRepository;
 
     @Override
     public List<Conference> getAllConferences() {

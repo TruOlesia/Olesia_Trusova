@@ -1,23 +1,22 @@
 package com.ot.conferences.controller;
 
-import com.ot.conferences.controller.dto.ConferenceDto;
 import com.ot.conferences.controller.dto.UserDto;
-import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.UserService;
-import com.ot.conferences.service.model.Conference;
 import com.ot.conferences.service.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/users")
