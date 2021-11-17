@@ -39,13 +39,15 @@ public class TopicController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/topic")
-    public TopicDto createTopic(@RequestBody Topic topic) {
+    public TopicDto createTopic(@RequestBody TopicDto topicDto) {
+        Topic topic = mapTopicDtoToTopic(topicDto);
         return mapTopicToTopicDto(topicService.createTopic(topic));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/topic/{id}")
-    public TopicDto updateTopic(@PathVariable int id, @RequestBody Topic topic) {
+    public TopicDto updateTopic(@PathVariable int id, @RequestBody TopicDto topicDto) {
+        Topic topic = mapTopicDtoToTopic(topicDto);
         return mapTopicToTopicDto(topicService.updateTopic(id, topic));
     }
 

@@ -3,6 +3,7 @@ package com.ot.conferences.controller;
 import com.ot.conferences.controller.dto.ConferenceDto;
 import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.model.Conference;
+import com.ot.conferences.service.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,15 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/conference")
-    public ConferenceDto createConference(@RequestBody Conference conference) {
+    public ConferenceDto createConference(@RequestBody ConferenceDto conferenceDto) {
+        Conference conference = mapConferenceDtoToConference(conferenceDto);
         return mapConferenceToConferenceDto(conferenceService.createConference(conference));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/conference/{id}")
-    public ConferenceDto updateConference(@PathVariable int id, @RequestBody Conference conference) {
+    public ConferenceDto updateConference(@PathVariable int id, @RequestBody ConferenceDto conferenceDto) {
+        Conference conference = mapConferenceDtoToConference(conferenceDto);
         return mapConferenceToConferenceDto(conferenceService.updateConference(id, conference));
     }
 

@@ -1,9 +1,8 @@
 package com.ot.conferences.controller;
-
 import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.service.UserService;
 import com.ot.conferences.service.model.User;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +34,15 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/user")
-    public UserDto createUser(@RequestBody User user) {
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        User user = mapUserDtoToUser(userDto);
         return mapUserToUserDto(userService.createUser(user));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/user/{login}")
-    public UserDto updateUser(@PathVariable String login, @RequestBody User user) {
+    public UserDto updateUser(@PathVariable String login, @RequestBody UserDto userDto) {
+        User user = mapUserDtoToUser(userDto);
         return mapUserToUserDto(userService.updateUser(login, user));
     }
 
