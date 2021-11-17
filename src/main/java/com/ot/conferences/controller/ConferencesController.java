@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,13 +34,17 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/conference")
-    public ConferenceDto createConference(@RequestBody Conference conference) {
+    public ConferenceDto createConference(@RequestBody ConferenceDto conferenceDto) {
+        Conference conference = mapConferenceDtoToConference(conferenceDto);
+
         return mapConferenceToConferenceDto(conferenceService.createConference(conference));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/conference/{id}")
-    public ConferenceDto updateConference(@PathVariable int id, @RequestBody Conference conference) {
+    public ConferenceDto updateConference(@PathVariable int id, @RequestBody @Valid ConferenceDto conferenceDto) {
+        Conference conference = mapConferenceDtoToConference(conferenceDto);
+
         return mapConferenceToConferenceDto(conferenceService.updateConference(id, conference));
     }
 

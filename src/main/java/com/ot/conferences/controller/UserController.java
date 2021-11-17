@@ -2,6 +2,7 @@ package com.ot.conferences.controller;
 
 import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.service.UserService;
+import com.ot.conferences.service.model.Topic;
 import com.ot.conferences.service.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/user")
-    public UserDto createUser(@RequestBody User user) {
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        User user = mapUserDtoToUser(userDto);
         return mapUserToUserDto(userService.createUser(user));
     }
 
