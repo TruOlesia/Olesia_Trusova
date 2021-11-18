@@ -1,33 +1,32 @@
 package com.ot.conferences.controller;
-
-import com.ot.conferences.controller.dto.ConferenceDto;
 import com.ot.conferences.controller.dto.TopicDto;
-import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.TopicService;
-import com.ot.conferences.service.model.Conference;
-import com.ot.conferences.service.model.Topic;
-import lombok.RequiredArgsConstructor;
+import com.ot.conferences.model.Topic;
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-
 public class TopicController {
 
     @Autowired
     private TopicService topicService;
+
+    @Autowired
+    private DozerBeanMapper dozerBeanMapper;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/topics")
     public List<TopicDto> getAllTopics() {
         return topicService.getAllTopics()
                 .stream()
-                .map(this::mapTopicToTopicDto)
+                .map(t -> dozerBeanMapper.map(t, TopicDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -35,21 +34,21 @@ public class TopicController {
     @GetMapping(value = "/topic/{id}")
     public TopicDto getTopic(@PathVariable int id) {
 
-        return mapTopicToTopicDto(topicService.getTopic(id));
+        return dozerBeanMapper.map(topicService.getTopic(id), TopicDto.class);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/topic")
-    public TopicDto createTopic(@RequestBody TopicDto topicDto) {
-        Topic topic = mapTopicDtoToTopic(topicDto);
-        return mapTopicToTopicDto(topicService.createTopic(topic));
+    public TopicDto createTopic(@RequestBody @Valid TopicDto topicDto) {
+        Topic topic = dozerBeanMapper.map(topicDto, Topic.class);
+        return dozerBeanMapper.map(topicService.createTopic(topic), TopicDto.class);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/topic/{id}")
-    public TopicDto updateTopic(@PathVariable int id, @RequestBody TopicDto topicDto) {
-        Topic topic = mapTopicDtoToTopic(topicDto);
-        return mapTopicToTopicDto(topicService.updateTopic(id, topic));
+    public TopicDto updateTopic(@PathVariable int id, @RequestBody @Valid TopicDto topicDto) {
+        Topic topic = dozerBeanMapper.map(topicDto, Topic.class);
+        return dozerBeanMapper.map(topicService.updateTopic(id, topic), TopicDto.class);
     }
 
     @DeleteMapping(value = "/topic/{id}")
@@ -58,28 +57,4 @@ public class TopicController {
         return ResponseEntity.noContent().build();
     }
 
-
-    private TopicDto mapTopicToTopicDto(Topic topic) {
-        return TopicDto.builder()
-                .id(topic.getId())
-                .name(topic.getName())
-                .date(topic.getDate())
-                .status(topic.getStatus())
-                .speakerId(topic.getSpeakerId())
-                .conferenceId(topic.getConferenceId())
-                .createdByUserId(topic.getCreatedByUserId())
-                .build();
-    }
-
-    private Topic mapTopicDtoToTopic(TopicDto topicDto) {
-        return Topic.builder()
-                .id(topicDto.getId())
-                .name(topicDto.getName())
-                .date(topicDto.getDate())
-                .status(topicDto.getStatus())
-                .speakerId(topicDto.getSpeakerId())
-                .conferenceId(topicDto.getConferenceId())
-                .createdByUserId(topicDto.getCreatedByUserId())
-                .build();
-    }
 }

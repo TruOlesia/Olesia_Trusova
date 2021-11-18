@@ -1,11 +1,10 @@
-package com.ot.conferences.service.model;
+package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.UserRole;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class User {
     private int id;
     private String login;

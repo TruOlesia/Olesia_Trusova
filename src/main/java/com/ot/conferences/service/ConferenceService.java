@@ -1,7 +1,6 @@
 package com.ot.conferences.service;
 
-import com.ot.conferences.controller.dto.ConferenceDto;
-import com.ot.conferences.service.model.Conference;
+import com.ot.conferences.model.Conference;
 
 import java.util.List;
 

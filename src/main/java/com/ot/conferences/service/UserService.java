@@ -1,7 +1,6 @@
 package com.ot.conferences.service;
 
-import com.ot.conferences.controller.dto.UserDto;
-import com.ot.conferences.service.model.User;
+import com.ot.conferences.model.User;
 
 import java.util.List;
 

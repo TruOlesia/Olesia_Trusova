@@ -1,13 +1,12 @@
-package com.ot.conferences.service.model;
+package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.ConferenceStatus;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-@Builder
 public class Conference {
 
     private int id;
