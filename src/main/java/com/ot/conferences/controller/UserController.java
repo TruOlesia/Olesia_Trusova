@@ -1,7 +1,7 @@
 package com.ot.conferences.controller;
 import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.service.UserService;
-import com.ot.conferences.service.model.User;
+import com.ot.conferences.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

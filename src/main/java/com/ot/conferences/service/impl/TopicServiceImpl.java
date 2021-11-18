@@ -1,9 +1,8 @@
 package com.ot.conferences.service.impl;
 
 import com.ot.conferences.service.TopicService;
-import com.ot.conferences.service.model.Topic;
-import com.ot.conferences.service.repository.TopicRepository;
-import lombok.RequiredArgsConstructor;
+import com.ot.conferences.model.Topic;
+import com.ot.conferences.repository.TopicRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

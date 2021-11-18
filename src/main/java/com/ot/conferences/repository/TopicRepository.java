@@ -1,6 +1,6 @@
-package com.ot.conferences.service.repository;
+package com.ot.conferences.repository;
 
-import com.ot.conferences.service.model.Topic;
+import com.ot.conferences.model.Topic;
 
 import java.util.List;
 

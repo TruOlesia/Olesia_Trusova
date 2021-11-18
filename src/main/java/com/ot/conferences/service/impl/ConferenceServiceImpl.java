@@ -1,12 +1,9 @@
 package com.ot.conferences.service.impl;
 
-import com.ot.conferences.controller.dto.ConferenceDto;
-import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.service.ConferenceService;
-import com.ot.conferences.service.model.Conference;
-import com.ot.conferences.service.repository.ConferenceRepository;
+import com.ot.conferences.model.Conference;
+import com.ot.conferences.repository.ConferenceRepository;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

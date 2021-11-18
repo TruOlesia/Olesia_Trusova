@@ -1,7 +1,7 @@
 package com.ot.conferences.service.impl;
 import com.ot.conferences.service.UserService;
-import com.ot.conferences.service.model.User;
-import com.ot.conferences.service.repository.UserRepository;
+import com.ot.conferences.model.User;
+import com.ot.conferences.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

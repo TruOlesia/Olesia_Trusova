@@ -1,7 +1,7 @@
-package com.ot.conferences.service.repository.impl;
+package com.ot.conferences.repository.impl;
 
-import com.ot.conferences.service.model.User;
-import com.ot.conferences.service.repository.UserRepository;
+import com.ot.conferences.model.User;
+import com.ot.conferences.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

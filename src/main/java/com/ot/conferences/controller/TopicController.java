@@ -1,12 +1,8 @@
 package com.ot.conferences.controller;
 
-import com.ot.conferences.controller.dto.ConferenceDto;
 import com.ot.conferences.controller.dto.TopicDto;
-import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.TopicService;
-import com.ot.conferences.service.model.Conference;
-import com.ot.conferences.service.model.Topic;
-import lombok.RequiredArgsConstructor;
+import com.ot.conferences.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

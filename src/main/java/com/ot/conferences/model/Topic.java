@@ -1,4 +1,4 @@
-package com.ot.conferences.service.model;
+package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.TopicStatus;
 import lombok.Builder;
