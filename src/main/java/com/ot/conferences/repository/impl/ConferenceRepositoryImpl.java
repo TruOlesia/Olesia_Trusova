@@ -24,7 +24,7 @@ public class ConferenceRepositoryImpl implements ConferenceRepository {
         return list.stream()
                 .filter(conference -> conference.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Conference is not found!"));
+                .orElse(null);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ConferenceRepositoryImpl implements ConferenceRepository {
         if (isDeleted) {
             list.add(conference);
         } else {
-            throw new RuntimeException("Conference is not found!");
+            return null;
         }
         return conference;
     }

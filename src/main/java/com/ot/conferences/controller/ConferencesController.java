@@ -1,6 +1,7 @@
 package com.ot.conferences.controller;
 
 import com.ot.conferences.controller.dto.ConferenceDto;
+import com.ot.conferences.exception.NotFoundException;
 import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.model.Conference;
 import org.dozer.DozerBeanMapper;
@@ -32,28 +33,37 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/conference/{id}")
-    public ConferenceDto getConference(@PathVariable int id) {
+    public ConferenceDto getConference(@PathVariable int id) throws NotFoundException {
+        Conference conference = conferenceService.getConference(id);
+        if(conference == null) {
+            throw new NotFoundException("Invalid conference id : " + id);
+        }
         return dozerBeanMapper.map(conferenceService.getConference(id), ConferenceDto.class);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/conference")
-    public ConferenceDto createConference(@RequestBody @Valid ConferenceDto conferenceDto) {
+    public ConferenceDto createConference(@Valid @RequestBody ConferenceDto conferenceDto) {
         Conference conference = dozerBeanMapper.map(conferenceDto, Conference.class);
-
         return dozerBeanMapper.map(conferenceService.createConference(conference), ConferenceDto.class);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/conference/{id}")
-    public ConferenceDto updateConference(@PathVariable int id, @RequestBody @Valid ConferenceDto conferenceDto) {
+    public ConferenceDto updateConference(@PathVariable int id, @RequestBody @Valid ConferenceDto conferenceDto) throws NotFoundException {
         Conference conference = dozerBeanMapper.map(conferenceDto, Conference.class);
-
+        if(conference == null) {
+            throw new NotFoundException("Invalid conference id : " + id);
+        }
         return dozerBeanMapper.map(conferenceService.updateConference(id, conference), ConferenceDto.class);
     }
 
     @DeleteMapping(value = "/conference/{id}")
-    public ResponseEntity<Void> deleteConference(@PathVariable int id) {
+    public ResponseEntity<Void> deleteConference(@PathVariable int id) throws NotFoundException {
+        Conference conference = conferenceService.getConference(id);
+        if(conference == null) {
+            throw new NotFoundException("Invalid conference id : " + id);
+        }
         conferenceService.deleteConference(id);
         return ResponseEntity.noContent().build();
     }
