@@ -1,5 +1,7 @@
 package com.ot.conferences.controller;
 import com.ot.conferences.controller.dto.UserDto;
+import com.ot.conferences.exception.NotFoundException;
+import com.ot.conferences.model.Topic;
 import com.ot.conferences.service.UserService;
 import com.ot.conferences.model.User;
 import org.dozer.DozerBeanMapper;
@@ -32,7 +34,11 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/user/{login}")
-    public UserDto getConference(@PathVariable String login) {
+    public UserDto getUser(@PathVariable String login) {
+        User user = userService.getUser(login);
+        if(user == null) {
+            throw new NotFoundException("Invalid user login : " + login);
+        }
         return dozerBeanMapper.map(userService.getUser(login), UserDto.class);
     }
 
@@ -40,6 +46,9 @@ public class UserController {
     @PostMapping(value = "/user")
     public UserDto createUser(@RequestBody @Valid UserDto userDto) {
         User user = dozerBeanMapper.map(userDto, User.class);
+        if(user == null) {
+            throw new NotFoundException("Invalid user");
+        }
         return dozerBeanMapper.map(userService.createUser(user), UserDto.class);
     }
 
@@ -47,11 +56,18 @@ public class UserController {
     @PutMapping(value = "/user/{login}")
     public UserDto updateUser(@PathVariable String login, @RequestBody @Valid UserDto userDto) {
        User user = dozerBeanMapper.map(userDto, User.class);
+        if(user == null) {
+            throw new NotFoundException("Invalid user login : " + login);
+        }
         return dozerBeanMapper.map(userService.updateUser(login, user), UserDto.class);
     }
 
     @DeleteMapping(value = "/user/{login}")
-    public ResponseEntity<Void> deleteConference(@PathVariable String login) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String login) {
+        User user = userService.getUser(login);
+        if(user == null) {
+            throw new NotFoundException("Invalid user login : " + login);
+        }
         userService.deleteUser(login);
         return ResponseEntity.noContent().build();
     }

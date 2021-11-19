@@ -1,5 +1,6 @@
 package com.ot.conferences.controller;
 import com.ot.conferences.controller.dto.TopicDto;
+import com.ot.conferences.exception.NotFoundException;
 import com.ot.conferences.service.TopicService;
 import com.ot.conferences.model.Topic;
 import org.dozer.DozerBeanMapper;
@@ -33,7 +34,10 @@ public class TopicController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/topic/{id}")
     public TopicDto getTopic(@PathVariable int id) {
-
+        Topic topic = topicService.getTopic(id);
+        if(topic == null) {
+            throw new NotFoundException("Invalid topic id : " + id);
+        }
         return dozerBeanMapper.map(topicService.getTopic(id), TopicDto.class);
     }
 
@@ -41,6 +45,9 @@ public class TopicController {
     @PostMapping(value = "/topic")
     public TopicDto createTopic(@RequestBody @Valid TopicDto topicDto) {
         Topic topic = dozerBeanMapper.map(topicDto, Topic.class);
+        if(topic == null) {
+            throw new NotFoundException("Invalid topic");
+        }
         return dozerBeanMapper.map(topicService.createTopic(topic), TopicDto.class);
     }
 
@@ -48,11 +55,18 @@ public class TopicController {
     @PutMapping(value = "/topic/{id}")
     public TopicDto updateTopic(@PathVariable int id, @RequestBody @Valid TopicDto topicDto) {
         Topic topic = dozerBeanMapper.map(topicDto, Topic.class);
+        if(topic == null) {
+            throw new NotFoundException("Invalid topic id : " + id);
+        }
         return dozerBeanMapper.map(topicService.updateTopic(id, topic), TopicDto.class);
     }
 
     @DeleteMapping(value = "/topic/{id}")
     public ResponseEntity<Void> deleteTopic(@PathVariable int id) {
+        Topic topic = topicService.getTopic(id);
+        if(topic == null) {
+            throw new NotFoundException("Invalid topic id : " + id);
+        }
         topicService.deleteTopic(id);
         return ResponseEntity.noContent().build();
     }

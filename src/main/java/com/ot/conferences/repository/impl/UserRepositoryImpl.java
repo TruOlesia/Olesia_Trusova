@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
         return list.stream()
                 .filter(user -> user.getLogin().equals(login))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("User is not found!"));
+                .orElse(null);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (isDeleted) {
             list.add(user);
         } else {
-            throw new RuntimeException("User is not found!");
+            return null;
         }
         return user;
     }

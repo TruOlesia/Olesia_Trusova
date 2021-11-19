@@ -22,7 +22,7 @@ public class TopicRepositoryImpl implements TopicRepository {
         return list.stream()
                 .filter(topic -> topic.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Topic is not found!"));
+                .orElse(null);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class TopicRepositoryImpl implements TopicRepository {
         if (isDeleted) {
             list.add(topic);
         } else {
-            throw new RuntimeException("Topic is not found!");
+            return null;
         }
         return topic;
     }

@@ -1,5 +1,7 @@
 package com.ot.conferences.error;
+import lombok.Data;
 
+@Data
 public class ValidationError {
 
     private final String fieldName;
