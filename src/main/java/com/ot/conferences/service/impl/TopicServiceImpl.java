@@ -1,14 +1,17 @@
 package com.ot.conferences.service.impl;
 
-import com.ot.conferences.service.TopicService;
 import com.ot.conferences.model.Topic;
 import com.ot.conferences.repository.TopicRepository;
-
+import com.ot.conferences.service.TopicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -19,34 +22,35 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<Topic> getAllTopics() {
+    public List<Topic> getAllTopics(Pageable paging) {
+        Page<Topic> pagedResult = topicRepository.findAll(paging);
         log.info("get all topics");
-        return topicRepository.getAllTopics();
+
+        if (pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Topic>();
+        }
     }
 
     @Override
-    public Topic getTopic(int id) {
+    public Topic getTopic(Long id) {
         log.info("get topic by id {}", id);
-        Topic topic = topicRepository.getTopic(id);
-        return topic;
+        Optional<Topic> topic = topicRepository.findById(id);
+        return topic.orElse(null);
     }
 
     @Override
-    public Topic createTopic(Topic topic) {
+    public Topic createOrUpdateTopic(Topic topic) {
         log.info("create topic with id {}", topic.getId());
-        return topicRepository.createTopic(topic);
+        return topicRepository.save(topic);
     }
 
     @Override
-    public Topic updateTopic(int id, Topic topic) {
-        log.info("update topic with id {}", id);
-        return topicRepository.updateTopic(id, topic);
-    }
-
-    @Override
-    public void deleteTopic(int id) {
+    public void deleteTopic(Long id) {
+        Optional<Topic> topic = topicRepository.findById(id);
         log.info("deleteTopic with id {}", id);
-        topicRepository.deleteTopic(id);
+        topicRepository.delete(topic.orElse(null));
     }
 
 

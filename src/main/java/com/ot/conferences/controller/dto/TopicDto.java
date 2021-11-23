@@ -10,14 +10,14 @@ import java.util.Date;
 @Data
 public class TopicDto {
 
-    private int id;
+    private Long id;
     @NotNull(message = "Name is mandatory")
     private String name;
-    private int conferenceId;
-    private int speakerId;
+    private ConferenceDto conference;
+    private UserDto speaker;
     @NotNull(message = "date is mandatory")
     private Date date;
     private TopicStatus status;
-    private int createdByUserId;
+    private UserDto createdByUser;
 
 }

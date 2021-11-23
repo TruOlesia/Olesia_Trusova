@@ -1,19 +1,19 @@
 package com.ot.conferences.service;
 
 import com.ot.conferences.model.Conference;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
 public interface ConferenceService {
 
-    List<Conference> getAllConferences();
+    List<Conference> getAllConferences(Pageable paging);
 
-    Conference getConference(int id);
+    Conference getConference(Long id);
 
-    Conference createConference(Conference conference);
+    Conference createOrUpdateConference(Conference conference);
 
-    Conference updateConference(int id, Conference conference);
-
-    void deleteConference(int id);
+    void deleteConference(Long id);
 
 }

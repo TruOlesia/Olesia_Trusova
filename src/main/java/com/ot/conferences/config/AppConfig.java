@@ -3,7 +3,6 @@ package com.ot.conferences.config;
 import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration

@@ -2,13 +2,13 @@ package com.ot.conferences.controller;
 
 import com.ot.conferences.controller.dto.ConferenceDto;
 import com.ot.conferences.exception.NotFoundException;
-import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.model.Conference;
+import com.ot.conferences.service.ConferenceService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,8 +25,9 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/conferences")
-    public List<ConferenceDto> getAllConferences() {
-        return conferenceService.getAllConferences()
+    public List<ConferenceDto> getAllConferences(@RequestParam Pageable pageable) {
+
+        return conferenceService.getAllConferences(pageable)
                 .stream()
                 .map(c -> dozerBeanMapper.map(c, ConferenceDto.class))
                 .collect(Collectors.toList());
@@ -34,7 +35,7 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/conference/{id}")
-    public ConferenceDto getConference(@PathVariable int id) throws NotFoundException {
+    public ConferenceDto getConference(@PathVariable Long id) throws NotFoundException {
         Conference conference = conferenceService.getConference(id);
         if(conference == null) {
             throw new NotFoundException("Invalid conference id : " + id);
@@ -46,21 +47,21 @@ public class ConferencesController {
     @PostMapping(value = "/conference")
     public ConferenceDto createConference(@Valid @RequestBody ConferenceDto conferenceDto) {
         Conference conference = dozerBeanMapper.map(conferenceDto, Conference.class);
-        return dozerBeanMapper.map(conferenceService.createConference(conference), ConferenceDto.class);
+        return dozerBeanMapper.map(conferenceService.createOrUpdateConference(conference), ConferenceDto.class);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/conference/{id}")
-    public ConferenceDto updateConference(@PathVariable int id, @RequestBody @Valid ConferenceDto conferenceDto) throws NotFoundException {
+    public ConferenceDto updateConference(@PathVariable Long id, @RequestBody @Valid ConferenceDto conferenceDto) throws NotFoundException {
         Conference conference = dozerBeanMapper.map(conferenceDto, Conference.class);
-        if(conference == null) {
+        if(conference == null || conference.getId() ==null) {
             throw new NotFoundException("Invalid conference id : " + id);
         }
-        return dozerBeanMapper.map(conferenceService.updateConference(id, conference), ConferenceDto.class);
+        return dozerBeanMapper.map(conferenceService.createOrUpdateConference(conference), ConferenceDto.class);
     }
 
     @DeleteMapping(value = "/conference/{id}")
-    public ResponseEntity<Void> deleteConference(@PathVariable int id) throws NotFoundException {
+    public ResponseEntity<Void> deleteConference(@PathVariable Long id) throws NotFoundException {
         Conference conference = conferenceService.getConference(id);
         if(conference == null) {
             throw new NotFoundException("Invalid conference id : " + id);
