@@ -1,9 +1,11 @@
 package com.ot.conferences.controller;
 
 import com.ot.conferences.controller.dto.ConferenceDto;
+import com.ot.conferences.controller.dto.ParticipantDto;
 import com.ot.conferences.exception.NotFoundException;
 import com.ot.conferences.model.Conference;
 import com.ot.conferences.service.ConferenceService;
+import com.ot.conferences.service.ParticipantService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +23,13 @@ public class ConferencesController {
     private ConferenceService conferenceService;
 
     @Autowired
+    private ParticipantService participantService;
+
+    @Autowired
     private DozerBeanMapper dozerBeanMapper;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/conferences")
+    @GetMapping(value = "/conference")
     public List<ConferenceDto> getAllConferences(@RequestParam Pageable pageable) {
 
         return conferenceService.getAllConferences(pageable)
@@ -68,5 +73,15 @@ public class ConferencesController {
         }
         conferenceService.deleteConference(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/conference/{id}/participant")
+    public List<ParticipantDto> getParticipants(@PathVariable Long id) {
+
+        return participantService.getAllParticipantByConfId(id)
+                .stream()
+                .map(c -> dozerBeanMapper.map(c, ParticipantDto.class))
+                .collect(Collectors.toList());
     }
 }

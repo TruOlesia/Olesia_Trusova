@@ -10,10 +10,10 @@ import java.util.List;
 public interface ParticipantRepository extends PagingAndSortingRepository<Participant, ParticipantKey> {
 
     @Query("select p from Participant p where p.user.id = ?1")
-    List<Participant> findParticipantByUserId();
+    List<Participant> findParticipantByUserId(Long id);
 
     @Query("select p from Participant p where p.conference.id = ?1")
-    List<Participant> findParticipantByConfId();
+    List<Participant> findParticipantByConfId(Long id);
 
     @Query("select p from Participant p where p.conference.id = ?1 And p.isPresent = true ")
     List<Participant> findPresentByConfIdAnd();

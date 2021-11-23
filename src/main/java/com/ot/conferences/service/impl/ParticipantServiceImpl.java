@@ -19,12 +19,12 @@ public class ParticipantServiceImpl implements ParticipantService {
     @Override
     public List<Participant> getAllParticipantByUserId(Long userId) {
         log.info("get list participants by user id");
-        return participantRepository.findParticipantByUserId();
+        return participantRepository.findParticipantByUserId(userId);
     }
 
     @Override
     public List<Participant> getAllParticipantByConfId(Long confId) {
         log.info("get list participants by conference id");
-        return participantRepository.findParticipantByConfId();
+        return participantRepository.findParticipantByConfId(confId);
     }
 }

@@ -1,8 +1,10 @@
 package com.ot.conferences.controller;
 
+import com.ot.conferences.controller.dto.ParticipantDto;
 import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.exception.NotFoundException;
 import com.ot.conferences.model.User;
+import com.ot.conferences.service.ParticipantService;
 import com.ot.conferences.service.UserService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ParticipantService participantService;
 
     @Autowired
     private DozerBeanMapper dozerBeanMapper;
@@ -75,4 +80,13 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/user/{id}/participant")
+    public List<ParticipantDto> getParticipants(@PathVariable Long id) {
+
+        return participantService.getAllParticipantByUserId(id)
+                .stream()
+                .map(c -> dozerBeanMapper.map(c, ParticipantDto.class))
+                .collect(Collectors.toList());
+    }
 }
