@@ -8,6 +8,7 @@ import com.ot.conferences.service.ParticipantService;
 import com.ot.conferences.service.UserService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,10 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/users")
-    public List<UserDto> getListUsers(@RequestParam Pageable paging) {
-        return userService.listUsers(paging)
+    public List<UserDto> getListUsers(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userService.listUsers(pageable)
                 .stream()
                 .map(u -> dozerBeanMapper.map(u, UserDto.class))
                 .collect(Collectors.toList());

@@ -5,6 +5,7 @@ import com.ot.conferences.service.TopicService;
 import com.ot.conferences.model.Topic;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,10 @@ public class TopicController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/topics")
-    public List<TopicDto> getAllTopics(@RequestParam Pageable paging) {
-        return topicService.getAllTopics(paging)
+    public List<TopicDto> getAllTopics(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return topicService.getAllTopics(pageable)
                 .stream()
                 .map(t -> dozerBeanMapper.map(t, TopicDto.class))
                 .collect(Collectors.toList());

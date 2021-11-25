@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Topics")
+@Table(name = "topic")
 @Data
 public class Topic {
 
@@ -19,11 +19,11 @@ public class Topic {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conf_id", referencedColumnName = "id")
     private Conference conference;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "speaker_id", referencedColumnName = "id")
     private User speaker;
 
@@ -33,7 +33,7 @@ public class Topic {
     @Column(name = "status")
     private TopicStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_user_id", referencedColumnName = "id")
     private User createdByUser;
 }

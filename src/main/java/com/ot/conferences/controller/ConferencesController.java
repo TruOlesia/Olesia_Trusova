@@ -8,6 +8,7 @@ import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.ParticipantService;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,10 @@ public class ConferencesController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/conference")
-    public List<ConferenceDto> getAllConferences(@RequestParam Pageable pageable) {
+    public List<ConferenceDto> getAllConferences(@RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam(defaultValue = "10") int size) {
 
+            Pageable pageable = PageRequest.of(page, size);
         return conferenceService.getAllConferences(pageable)
                 .stream()
                 .map(c -> dozerBeanMapper.map(c, ConferenceDto.class))

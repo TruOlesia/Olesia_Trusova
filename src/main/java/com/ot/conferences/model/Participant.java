@@ -5,19 +5,19 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Participants")
+@Table(name = "participant")
 @Data
 public class Participant {
 
     @EmbeddedId
     ParticipantKey id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("confId")
     @JoinColumn(name = "conf_id")
     private Conference conference;

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Conferences")
+@Table(name = "conference")
 @Data
 public class Conference {
 
@@ -15,7 +15,7 @@ public class Conference {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "conf_name")
     private String name;
 
     @Column(name = "location")
@@ -27,7 +27,7 @@ public class Conference {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "moderator_id", referencedColumnName = "id")
     private User moderator;
 
