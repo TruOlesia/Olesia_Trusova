@@ -31,6 +31,7 @@ public class Topic {
     private Date date;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private TopicStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)

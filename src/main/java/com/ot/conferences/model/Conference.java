@@ -32,6 +32,7 @@ public class Conference {
     private User moderator;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private ConferenceStatus status;
 
 }
