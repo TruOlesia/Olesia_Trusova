@@ -28,8 +28,8 @@ public class TopicController {
     @GetMapping(value = "/topics")
     public List<TopicDto> getAllTopics(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return topicService.getAllTopics(pageable)
+        Pageable paging = PageRequest.of(page, size);
+        return topicService.getAllTopics(paging)
                 .stream()
                 .map(t -> dozerBeanMapper.map(t, TopicDto.class))
                 .collect(Collectors.toList());

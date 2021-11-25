@@ -34,8 +34,8 @@ public class ConferencesController {
     public List<ConferenceDto> getAllConferences(@RequestParam(defaultValue = "0") int page,
                                                  @RequestParam(defaultValue = "10") int size) {
 
-            Pageable pageable = PageRequest.of(page, size);
-        return conferenceService.getAllConferences(pageable)
+            Pageable paging = PageRequest.of(page, size);
+        return conferenceService.getAllConferences(paging)
                 .stream()
                 .map(c -> dozerBeanMapper.map(c, ConferenceDto.class))
                 .collect(Collectors.toList());

@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface UserService {
 
-    public User getUser(String login);
+    public User getUser(Long id);
 
     List<User> listUsers(Pageable paging);
 
     User save(User user);
 
-    void deleteUser(String login);
+    void deleteUser(Long id);
 
 }

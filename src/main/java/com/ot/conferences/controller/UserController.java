@@ -36,21 +36,21 @@ public class UserController {
     @GetMapping(value = "/users")
     public List<UserDto> getListUsers(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return userService.listUsers(pageable)
+        Pageable paging = PageRequest.of(page, size);
+        return userService.listUsers(paging)
                 .stream()
                 .map(u -> dozerBeanMapper.map(u, UserDto.class))
                 .collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/user/{login}")
-    public UserDto getUser(@PathVariable String login) {
-        User user = userService.getUser(login);
+    @GetMapping(value = "/user/{id}")
+    public UserDto getUser(@PathVariable Long id) {
+        User user = userService.getUser(id);
         if (user == null) {
-            throw new NotFoundException("Invalid user login : " + login);
+            throw new NotFoundException("Invalid user id : " + id);
         }
-        return dozerBeanMapper.map(userService.getUser(login), UserDto.class);
+        return dozerBeanMapper.map(userService.getUser(id), UserDto.class);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -64,22 +64,22 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/user/{login}")
-    public UserDto updateUser(@PathVariable String login, @RequestBody @Valid UserDto userDto) {
+    @PutMapping(value = "/user/{id}")
+    public UserDto updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto) {
         User user = dozerBeanMapper.map(userDto, User.class);
         if (user == null || user.getId() == null) {
-            throw new NotFoundException("Invalid user login : " + login);
+            throw new NotFoundException("Invalid user id : " + id);
         }
         return dozerBeanMapper.map(userService.save(user), UserDto.class);
     }
 
-    @DeleteMapping(value = "/user/{login}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String login) {
-        User user = userService.getUser(login);
+    @DeleteMapping(value = "/user/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        User user = userService.getUser(id);
         if (user == null) {
-            throw new NotFoundException("Invalid user login : " + login);
+            throw new NotFoundException("Invalid user login : " + id);
         }
-        userService.deleteUser(login);
+        userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -7,11 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,10 +22,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getUser(String login) {
-        log.info("getUser by login {}", login);
-        User user = userRepository.getByLogin(login);
-        return user;
+    public User getUser(Long id) {
+        log.info("getUser by id {}", id);
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
     }
 
     @Override
@@ -42,16 +42,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        log.info("createUser with login {}", user.getLogin());
+        log.info("createUser with id {}", user.getId());
         return userRepository.save(user);
     }
 
 
     @Override
-    public void deleteUser(String login) {
-        User user = userRepository.getByLogin(login);
-        log.info("deleteUser with login {}", login);
-        userRepository.delete(user);
+    public void deleteUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        log.info("deleteUser with id {}", id);
+        userRepository.delete(user.orElse(null));
     }
 
 }
