@@ -11,11 +11,6 @@ import org.springframework.context.annotation.Bean;
 @Import(OtherConfig.class)
 public class BeanConfig {
 
-    @Bean
-    public BeanA beanA(){
-        return new BeanA();
-    }
-
     @Bean(initMethod = "customInitMethod", destroyMethod = "customDestroyMethod")
     @DependsOn({"beanD"})
     public BeanB getBeanB() {
@@ -35,7 +30,8 @@ public class BeanConfig {
     }
 
     @Bean
-    public BeanE beanE(){
-        return new BeanE();
+    @Lazy
+    public BeanF beanF(){
+        return new BeanF();
     }
 }
