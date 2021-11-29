@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
+
 public class ConferenceDto {
     private Long id;
     @NotBlank(message = "Login is mandatory")
