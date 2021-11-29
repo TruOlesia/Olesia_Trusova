@@ -28,10 +28,4 @@ public class BeanConfig {
     public BeanD getBeanD() {
         return new BeanD();
     }
-
-    @Bean
-    @Lazy
-    public BeanF beanF(){
-        return new BeanF();
-    }
 }
