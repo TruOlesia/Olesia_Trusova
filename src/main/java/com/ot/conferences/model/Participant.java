@@ -1,5 +1,6 @@
 package com.ot.conferences.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "participant")
 @Data
+@Builder
 public class Participant {
 
     @EmbeddedId

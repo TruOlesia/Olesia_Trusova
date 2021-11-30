@@ -54,5 +54,4 @@ public class ConferenceServiceImpl implements ConferenceService {
         conferenceRepository.delete(conference.orElse(null));
     }
 
-
 }

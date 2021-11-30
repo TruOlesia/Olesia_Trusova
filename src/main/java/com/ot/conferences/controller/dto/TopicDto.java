@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
+@Builder
 public class TopicDto {
 
     private Long id;

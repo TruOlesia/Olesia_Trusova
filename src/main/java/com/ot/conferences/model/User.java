@@ -1,6 +1,7 @@
 package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.UserRole;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @Data
+@Builder
 public class User {
 
     @Id

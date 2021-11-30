@@ -1,6 +1,7 @@
 package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.ConferenceStatus;
+import lombok.Builder;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
 @Entity
 @Table(name = "conference")
 @Data
+@Builder
 public class Conference {
 
     @Id

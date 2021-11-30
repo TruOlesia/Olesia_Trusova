@@ -1,5 +1,6 @@
 package com.ot.conferences.controller.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.FutureOrPresent;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
-
+@Builder
 public class ConferenceDto {
     private Long id;
     @NotBlank(message = "Login is mandatory")
@@ -21,5 +22,6 @@ public class ConferenceDto {
     private Date endDate;
     private ConferenceStatus status;
     private UserDto moderator;
+
 
 }
