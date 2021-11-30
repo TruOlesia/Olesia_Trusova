@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 public class ConferenceDto {
     private Long id;
-    @NotBlank(message = "Login is mandatory")
+    @NotBlank(message = "Name is mandatory")
     private String name;
     @NotNull(message = "Location is mandatory")
     private String location;

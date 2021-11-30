@@ -62,7 +62,7 @@ public class ConferencesController {
     @PutMapping(value = "/conference/{id}")
     public ConferenceDto updateConference(@PathVariable Long id, @RequestBody @Valid ConferenceDto conferenceDto) throws NotFoundException {
         Conference conference = dozerBeanMapper.map(conferenceDto, Conference.class);
-        if(conference == null || conference.getId() ==null) {
+        if(conference == null || conference.getId() != id) {
             throw new NotFoundException("Invalid conference id : " + id);
         }
         return dozerBeanMapper.map(conferenceService.createOrUpdateConference(conference), ConferenceDto.class);
