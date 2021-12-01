@@ -2,7 +2,11 @@ package com.ot.conferences.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ot.conferences.controller.dto.ConferenceDto;
+import com.ot.conferences.controller.dto.ParticipantDto;
+import com.ot.conferences.controller.dto.UserDto;
 import com.ot.conferences.model.Conference;
+import com.ot.conferences.model.Participant;
+import com.ot.conferences.model.User;
 import com.ot.conferences.service.ConferenceService;
 import com.ot.conferences.service.ParticipantService;
 import org.dozer.DozerBeanMapper;
@@ -60,10 +64,9 @@ class ConferencesControllerTest {
 
         List<Conference> conferenceList = new ArrayList<>();
         conferenceList.add(conference);
-        List<ConferenceDto> conferenceDtoList = new ArrayList<>();
-        conferenceDtoList.add(conferenceDto);
+
         when(conferenceService.getAllConferences(paging)).thenReturn(conferenceList);
-        when(conferenceList.stream().map(c -> dozerBeanMapper.map(c, ConferenceDto.class)).collect(Collectors.toList())).thenReturn(conferenceDtoList);
+        when(dozerBeanMapper.map(conference, ConferenceDto.class)).thenReturn(conferenceDto);
 
         mockMvc.perform(get("/conference"))
                 .andDo(print())
@@ -244,4 +247,21 @@ class ConferencesControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    void getAllParticipantsTest() throws Exception {
+        Participant participant = Participant.builder().conference(Conference.builder().id(MOCK_ID).build()).build();
+        ParticipantDto participantDto = ParticipantDto.builder().conf(ConferenceDto.builder().id(MOCK_ID).build()).build();
+
+        List<Participant> participantList = new ArrayList<>();
+        participantList.add(participant);
+        List<ParticipantDto> participantDtoList = new ArrayList<>();
+        participantDtoList.add(participantDto);
+        when(participantService.getAllParticipantByConfId(MOCK_ID)).thenReturn(participantList);
+        when(dozerBeanMapper.map(participant, ParticipantDto.class)).thenReturn(participantDto);
+
+        mockMvc.perform(get("/conference/{id}/participant", MOCK_ID))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
 }

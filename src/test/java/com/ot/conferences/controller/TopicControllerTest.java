@@ -64,7 +64,7 @@ class TopicControllerTest {
         List<TopicDto> topicDtoList = new ArrayList<>();
         topicDtoList.add(topicDto);
         when(topicService.getAllTopics(paging)).thenReturn(topicList);
-        when(topicList.stream().map(c -> dozerBeanMapper.map(c, TopicDto.class)).collect(Collectors.toList())).thenReturn(topicDtoList);
+        when(dozerBeanMapper.map(topic, TopicDto.class)).thenReturn(topicDto);
 
         mockMvc.perform(get("/topics"))
                 .andDo(print())

@@ -16,5 +16,5 @@ public interface ParticipantRepository extends PagingAndSortingRepository<Partic
     List<Participant> findParticipantByConfId(Long id);
 
     @Query("select p from Participant p where p.conference.id = ?1 And p.isPresent = true ")
-    List<Participant> findPresentByConfIdAnd();
+    List<Participant> findPresentByConfIdAndIsPresent();
 }

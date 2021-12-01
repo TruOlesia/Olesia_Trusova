@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class UserDto {
 
-    private int Long;
+    private Long id;
     @NotNull(message = "Login is mandatory")
     @Email
     private String login;

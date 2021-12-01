@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class ParticipantDto {
 
-    @NotNull(message = "id is mandatory")
+    @NotNull(message = "user is mandatory")
     private UserDto user;
-    @NotNull(message = "id is mandatory")
+    @NotNull(message = "conference is mandatory")
     private ConferenceDto conf;
     private boolean isPresent;
 }
