@@ -1,8 +1,10 @@
 package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.UserRole;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Table(name = "users")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -21,7 +25,7 @@ public class User {
     private String login;
 
     @Column(name = "password")
-    private transient String password;
+    private String password;
 
     @Column(name = "full_name")
     private String fullName;

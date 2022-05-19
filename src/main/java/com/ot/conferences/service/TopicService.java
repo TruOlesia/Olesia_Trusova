@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TopicService {
 
-    List<Topic> getAllTopics(Pageable paging);
+    List<Topic> getAllTopicsByConferenceId(Long id, Pageable paging);
 
     Topic getTopic(Long id);
 

@@ -21,8 +21,8 @@ public class TopicServiceImpl implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<Topic> getAllTopics(Pageable paging) {
-        Page<Topic> pagedResult = topicRepository.findAll(paging);
+    public List<Topic> getAllTopicsByConferenceId(Long id,Pageable paging) {
+        Page<Topic> pagedResult = topicRepository.findAllTopicByConfId(id,paging);
         log.info("get all topics");
 
         if (pagedResult.hasContent()) {

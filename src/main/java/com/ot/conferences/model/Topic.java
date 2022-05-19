@@ -1,8 +1,10 @@
 package com.ot.conferences.model;
 
 import com.ot.conferences.controller.dto.TopicStatus;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Date;
 @Table(name = "topic")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Topic {
 
     @Id

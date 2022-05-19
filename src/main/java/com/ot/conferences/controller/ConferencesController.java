@@ -77,6 +77,7 @@ public class ConferencesController {
         conferenceService.deleteConference(id);
         return ResponseEntity.noContent().build();
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/conference/{id}/participant")
     public List<ParticipantDto> getParticipants(@PathVariable Long id) {

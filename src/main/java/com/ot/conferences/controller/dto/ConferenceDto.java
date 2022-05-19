@@ -1,7 +1,9 @@
 package com.ot.conferences.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +12,8 @@ import java.util.Date;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConferenceDto {
     private Long id;
     @NotBlank(message = "Name is mandatory")

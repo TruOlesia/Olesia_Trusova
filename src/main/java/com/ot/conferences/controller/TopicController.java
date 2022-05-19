@@ -25,11 +25,11 @@ public class TopicController {
     private DozerBeanMapper dozerBeanMapper;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/topics")
+    @GetMapping(value = "/conference/{id}/topics")
     public List<TopicDto> getAllTopics(@RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "10") int size) {
+                                       @RequestParam(defaultValue = "10") int size, @PathVariable Long id) {
         Pageable paging = PageRequest.of(page, size);
-        return topicService.getAllTopics(paging)
+        return topicService.getAllTopicsByConferenceId(id,paging)
                 .stream()
                 .map(t -> dozerBeanMapper.map(t, TopicDto.class))
                 .collect(Collectors.toList());

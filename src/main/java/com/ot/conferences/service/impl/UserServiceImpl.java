@@ -1,12 +1,16 @@
 package com.ot.conferences.service.impl;
 
 import com.ot.conferences.model.User;
+import com.ot.conferences.model.UserDetailsPrincipal;
 import com.ot.conferences.repository.UserRepository;
 import com.ot.conferences.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,11 +19,10 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
-
 
     @Override
     public User getUser(Long id) {
@@ -53,5 +56,6 @@ public class UserServiceImpl implements UserService {
         log.info("deleteUser with id {}", id);
         userRepository.delete(user.orElse(null));
     }
+
 
 }
